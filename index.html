@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شركة زياتي علاء الدين</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Cairo', sans-serif; }
+    body { background: #f4f6f8; color: #333; line-height: 1.6; transition: background 0.5s; }
+    header { background: #0a1f44; color: #fff; padding: 20px 50px; position: sticky; top:0; z-index:1000; display:flex; justify-content:space-between; align-items:center; }
+    header h1 { font-size:28px; }
+    nav a { color:#fff; margin-left:25px; text-decoration:none; font-weight:bold; transition:0.3s; }
+    nav a:hover { color:#00bcd4; }
+    .hero { background: url('https://images.unsplash.com/photo-1581091012184-7b19c5b4e6d0?fit=crop&w=1400&q=80') no-repeat center/cover; height:90vh; display:flex; align-items:center; justify-content:center; color:#fff; text-align:center; transition: background 0.5s; }
+    .hero h2 { font-size:50px; background: rgba(0,0,0,0.5); padding:20px; border-radius:10px; }
+    .section { padding:80px 50px; }
+    .section h2 { text-align:center; margin-bottom:50px; font-size:36px; color:#0a1f44; }
+    .cards { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; }
+    .card { background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.1); width:300px; cursor:pointer; transition: transform 0.3s; position:relative; }
+    .card:hover { transform: translateY(-10px); }
+    .card-details { display:none; margin-top:15px; color:#555; font-size:14px; }
+    footer { background:#0a1f44; color:#fff; text-align:center; padding:30px 50px; }
+    button { cursor:pointer; padding:10px 20px; border:none; border-radius:5px; margin:10px 0; background:#00bcd4; color:#fff; font-weight:bold; transition:0.3s; }
+    button:hover { background:#0288a6; }
+    input { padding:10px; width:200px; border-radius:5px; border:1px solid #ccc; margin-right:10px; }
+    @media(max-width:768px){
+      nav { float:none; text-align:center; margin-top:15px; }
+      .cards { flex-direction:column; align-items:center; }
+      .hero h2 { font-size:36px; padding:15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>شركة زياتي علاء الدين</h1>
+    <nav>
+      <a href="#about">عن الشركة</a>
+      <a href="#services">خدماتنا</a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="hero">
+    <h2>الابتكار والتقنية في كل خطوة</h2>
+  </section>
+
+  <section class="section" id="about">
+    <h2>عن الشركة</h2>
+    <p style="text-align:center; max-width:800px; margin: 0 auto;">
+      نحن شركة رائدة في مجال التقنية والحلول الرقمية، نعمل على تقديم خدمات مبتكرة وعالية الجودة لتلبية احتياجات عملائنا وتحقيق رؤيتهم المستقبلية.
+    </p>
+    <div style="text-align:center; margin-top:30px;">
+      <button onclick="sayHello()">زر ترحيب</button>
+      <button onclick="changeTheme()">تغيير لون الموقع</button>
+    </div>
+    <div style="text-align:center; margin-top:20px;">
+      <input type="text" id="username" placeholder="أدخل اسمك هنا">
+      <button onclick="personalGreeting()">أرحب بي</button>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <h2>خدماتنا</h2>
+    <div class="cards">
+      <div class="card" onclick="toggleDetails(this)">
+        <h3>تطوير الويب</h3>
+        <div class="card-details">تصميم وبرمجة مواقع إلكترونية احترافية وسريعة الاستجابة لجميع الأجهزة مع أحدث التقنيات.</div>
+      </div>
+      <div class="card" onclick="toggleDetails(this)">
+        <h3>تطبيقات الهاتف</h3>
+        <div class="card-details">تطوير تطبيقات مبتكرة لأنظمة iOS و Android تناسب كل احتياجات العملاء وتوفر تجربة مستخدم رائعة.</div>
+      </div>
+      <div class="card" onclick="toggleDetails(this)">
+        <h3>حلول تقنية</h3>
+        <div class="card-details">تقديم حلول تقنية متكاملة للشركات والمؤسسات لتحسين الأداء والإنتاجية وتقليل التكاليف.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>تواصل معنا</h2>
+    <p style="text-align:center; max-width:800px; margin: 0 auto;">
+      البريد الإلكتروني: contact@ziati-tech.com | الهاتف: 0555 123 456 | العنوان: الجزائر العاصمة
+    </p>
+    <div style="text-align:center; margin-top:20px;">
+      <button onclick="toggleContact()">إخفاء/إظهار تواصل معنا</button>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 شركة زياتي علاء الدين. جميع الحقوق محفوظة.
+  </footer>
+
+  <script>
+    function sayHello(){
+      alert("مرحبا بك في شركة زياتي علاء الدين!");
+    }
+
+    function changeTheme(){
+      const body = document.body;
+      const hero = document.getElementById('hero');
+      // تغيير ألوان عشوائية بين 3 خيارات
+      const themes = [
+        {bg:'#f4f6f8', hero:'https://images.unsplash.com/photo-1581091012184-7b19c5b4e6d0?fit=crop&w=1400&q=80'},
+        {bg:'#1a1a2e', hero:'https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?fit=crop&w=1400&q=80'},
+        {bg:'#003366', hero:'https://images.unsplash.com/photo-1498050108023-c5249f4df085?fit=crop&w=1400&q=80'}
+      ];
+      const choice = themes[Math.floor(Math.random()*themes.length)];
+      body.style.background = choice.bg;
+      hero.style.background = `url('${choice.hero}') no-repeat center/cover`;
+    }
+
+    function personalGreeting(){
+      const name = document.getElementById('username').value.trim();
+      if(name) alert(`مرحبا بك ${name} في شركة زياتي علاء الدين!`);
+      else alert("الرجاء إدخال اسمك!");
+    }
+
+    function toggleDetails(card){
+      const details = card.querySelector('.card-details');
+      if(details.style.display === "block") details.style.display = "none";
+      else details.style.display = "block";
+    }
+
+    function toggleContact(){
+      const contact = document.getElementById('contact');
+      if(contact.style.display === "none") contact.style.display = "block";
+      else contact.style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
