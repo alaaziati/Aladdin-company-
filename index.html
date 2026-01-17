@@ -2,145 +2,49 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ATC AI Simulator | Ziati Aviation</title>
+<title>ATC AI CONTROL | Ziati Aviation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
-body{
-  margin:0;
-  background:#020617;
-  font-family:Consolas, monospace;
-  color:#22c55e;
-}
-
-/* HEADER */
-.header{
-  padding:12px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:2px solid #22c55e;
-}
+body{margin:0;background:#020617;font-family:Consolas, monospace;color:#22c55e;}
+.header{padding:12px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #22c55e;}
 .header h1{margin:0;color:#38bdf8}
+.container{display:grid;grid-template-columns:320px 1fr 360px;height:calc(100vh - 60px);}
+.panel,.right{padding:15px;}
+.panel{border-right:1px solid #1e293b}.right{border-left:1px solid #1e293b}
 
-/* LAYOUT */
-.container{
-  display:grid;
-  grid-template-columns:320px 1fr 320px;
-  height:calc(100vh - 60px);
-}
-
-/* PANELS */
-.panel,.right{
-  padding:15px;
-}
-.panel{border-right:1px solid #1e293b}
-.right{border-left:1px solid #1e293b}
-
-/* MAP / RADAR */
-.map{
-  position:relative;
-  background:
-    radial-gradient(circle at center,#022c22,#000),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M40 0H0V40' fill='none' stroke='%2322c55e33'/%3E%3C/svg%3E");
-  overflow:hidden;
-}
-.map::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:conic-gradient(from 0deg,rgba(34,197,94,.3),transparent 65%);
-  animation:sweep 5s linear infinite;
-}
+/* MAP */
+.map{position:relative;background:radial-gradient(circle at center,#022c22,#000);overflow:hidden;}
+.map::after{content:'';position:absolute;inset:0;background:conic-gradient(from 0deg,rgba(34,197,94,.3),transparent 65%);animation:sweep 5s linear infinite;}
 @keyframes sweep{to{transform:rotate(360deg)}}
-
-/* RUNWAY */
-.runway{
-  position:absolute;
-  width:65%;
-  height:12px;
-  background:#444;
-  top:55%;
-  left:18%;
-  transform:rotate(-18deg);
-}
-.runway::after{
-  content:'28L / 10R';
-  position:absolute;
-  right:-70px;
-  top:-8px;
-  color:white;
-}
-
-/* APPROACH */
-.approach{
-  position:absolute;
-  width:2px;
-  height:220px;
-  background:linear-gradient(transparent,#22c55e);
-  left:56%;
-  top:20%;
-  transform:rotate(-18deg);
-}
+.runway{position:absolute;width:65%;height:12px;background:#444;top:55%;left:18%;transform:rotate(-18deg);}
+.runway::after{content:'28L / 10R';position:absolute;right:-70px;top:-8px;color:white;}
+.approach{position:absolute;width:2px;height:220px;background:linear-gradient(transparent,#22c55e);left:56%;top:20%;transform:rotate(-18deg);}
 
 /* PLANE */
-.plane{
-  position:absolute;
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  background:#38bdf8;
-  box-shadow:0 0 10px #38bdf8;
-}
+.plane{position:absolute;width:12px;height:12px;border-radius:50%;background:#38bdf8;box-shadow:0 0 10px #38bdf8;cursor:pointer;}
 .plane.ai{background:#a855f7;box-shadow:0 0 10px #a855f7}
-.plane.danger{
-  background:#ef4444;
-  box-shadow:0 0 15px #ef4444;
-}
-.plane span{
-  position:absolute;
-  top:-22px;
-  left:14px;
-  font-size:11px;
-  white-space:nowrap;
-  color:#e5e7eb;
-}
+.plane.danger{background:#ef4444;box-shadow:0 0 15px #ef4444;}
+.plane span{position:absolute;top:-22px;left:14px;font-size:11px;white-space:nowrap;color:#e5e7eb;}
 
 /* BUTTONS */
-button{
-  width:100%;
-  margin:6px 0;
-  padding:10px;
-  background:#020617;
-  color:#22c55e;
-  border:1px solid #22c55e;
-  cursor:pointer;
-}
-button:hover{background:#22c55e;color:black}
+button,input{width:100%;margin:6px 0;padding:10px;background:#020617;color:#22c55e;border:1px solid #22c55e;cursor:pointer;}
+button:hover,input:hover{background:#22c55e;color:black}
 
 /* LOG */
-.log{
-  background:black;
-  height:230px;
-  overflow:auto;
-  padding:10px;
-  font-size:12px;
-  border:1px solid #22c55e;
-}
+.log{background:black;height:230px;overflow:auto;padding:10px;font-size:12px;border:1px solid #22c55e;}
 .alert{color:#ef4444;font-weight:bold}
 </style>
 </head>
-
 <body>
 
 <div class="header">
-  <h1>🌍✈️ ATC AI SIMULATOR</h1>
+  <h1>🌍✈️ ATC AI CONTROL</h1>
   <div>🌧️ STORM | WIND 20KT | VIS LOW</div>
 </div>
 
 <div class="container">
 
-<!-- LEFT -->
+<!-- LEFT PANEL -->
 <div class="panel">
   <h3>🎮 SCENARIOS</h3>
   <button onclick="scenarioNormal()">Normal Traffic</button>
@@ -161,20 +65,28 @@ button:hover{background:#22c55e;color:black}
   <div class="plane ai" style="top:120px;left:200px" data-name="SAUDIA 112" data-alt="30000" data-spd="460">
     <span>SAUDIA 112</span>
   </div>
-
   <div class="plane ai" style="top:260px;left:350px" data-name="QATAR 808" data-alt="28000" data-spd="450">
     <span>QATAR 808</span>
   </div>
-
   <div class="plane ai" style="top:340px;left:520px" data-name="AFRICA 210" data-alt="15000" data-spd="380">
     <span>AFRICA 210</span>
   </div>
 </div>
 
-<!-- RIGHT -->
+<!-- RIGHT PANEL -->
 <div class="right">
   <h3>📡 ATC LOG</h3>
   <div class="log" id="log">SYSTEM READY...<br></div>
+
+  <h3>✈️ SELECTED AIRCRAFT CONTROL</h3>
+  <p id="selPlane">None</p>
+  <label>Altitude (ft):</label>
+  <input type="number" id="altInput" placeholder="Enter altitude">
+  <label>Speed (kt):</label>
+  <input type="number" id="spdInput" placeholder="Enter speed">
+  <button onclick="applyCmd()">Apply Command</button>
+  <button onclick="cmdLand()">Land</button>
+  <button onclick="cmdGoAround()">Go Around</button>
 </div>
 
 </div>
@@ -182,22 +94,66 @@ button:hover{background:#22c55e;color:black}
 <script>
 const log=document.getElementById("log");
 const planes=[...document.querySelectorAll(".plane")];
+let selected=null;
 
-/* ===== AI ENGINE ===== */
-function aiMove(){
+function logMsg(t){log.innerHTML+=t+"<br>";log.scrollTop=log.scrollHeight;}
+
+/* ===== SCENARIOS ===== */
+function scenarioNormal(){logMsg("ATC: Normal traffic flow initiated");}
+function scenarioStorm(){logMsg("🌧️ WEATHER ALERT: Heavy storm");planes.forEach(p=>{p.dataset.spd-=50;logMsg(p.dataset.name+" reducing speed");});}
+function scenarioEmergency(){logMsg("<span class='alert'>!!! MAYDAY – ENGINE FAILURE !!!</span>");planes[0].dataset.alt=5000;logMsg("ATC: Emergency landing runway 28L");}
+function scenarioConflict(){logMsg("<span class='alert'>⚠️ AIRSPACE CONFLICT</span>");planes[1].style.left="260px";planes[2].style.left="270px";}
+
+/* ===== SELECT PLANE ===== */
+planes.forEach(p=>{
+  p.onclick=()=>{
+    planes.forEach(x=>x.classList.remove("selected"));
+    p.classList.add("selected");
+    selected=p;
+    document.getElementById("selPlane").innerHTML=`${p.dataset.name} | ALT ${p.dataset.alt} | SPD ${p.dataset.spd}`;
+    document.getElementById("altInput").value=p.dataset.alt;
+    document.getElementById("spdInput").value=p.dataset.spd;
+  }
+});
+
+/* ===== APPLY COMMAND ===== */
+function applyCmd(){
+  if(!selected){logMsg("Select an aircraft first!");return;}
+  let alt=document.getElementById("altInput").value;
+  let spd=document.getElementById("spdInput").value;
+  selected.dataset.alt=alt;
+  selected.dataset.spd=spd;
+  selected.querySelector("span").innerText=`${selected.dataset.name} | ALT ${alt} | SPD ${spd}`;
+  logMsg(`ATC: ${selected.dataset.name} set to ALT ${alt} ft, SPD ${spd} kt`);
+}
+
+/* LAND / GO AROUND */
+function cmdLand(){
+  if(!selected){logMsg("Select an aircraft first!");return;}
+  logMsg(`ATC: ${selected.dataset.name} cleared to LAND`);
+  selected.dataset.alt=0;
+  selected.querySelector("span").innerText=`${selected.dataset.name} | LANDED`;
+}
+function cmdGoAround(){
+  if(!selected){logMsg("Select an aircraft first!");return;}
+  logMsg(`ATC: ${selected.dataset.name} instructed to GO AROUND`);
+  selected.dataset.alt=parseInt(selected.dataset.alt)+2000;
+  selected.querySelector("span").innerText=`${selected.dataset.name} | ALT ${selected.dataset.alt}`;
+}
+
+/* ===== AI AUTO MOVE + COLLISION ===== */
+setInterval(()=>{
   planes.forEach(p=>{
-    let dx=Math.random()*10-5;
-    let dy=Math.random()*10-5;
-    p.style.left=p.offsetLeft+dx+"px";
-    p.style.top =p.offsetTop +dy+"px";
+    if(p.dataset.alt>0 && !p.classList.contains("selected")){
+      p.style.left=p.offsetLeft+Math.random()*6-3+"px";
+      p.style.top =p.offsetTop +Math.random()*6-3+"px";
+    }
     p.classList.remove("danger");
   });
-
-  // Collision Avoidance (AI)
   for(let i=0;i<planes.length;i++){
     for(let j=i+1;j<planes.length;j++){
       let dx=planes[i].offsetLeft-planes[j].offsetLeft;
-      let dy=planes[i].offsetTop -planes[j].offsetTop;
+      let dy=planes[i].offsetTop-planes[j].offsetTop;
       let d=Math.sqrt(dx*dx+dy*dy);
       if(d<45){
         planes[i].classList.add("danger");
@@ -206,39 +162,7 @@ function aiMove(){
       }
     }
   }
-}
-setInterval(aiMove,1200);
-
-/* ===== LOG ===== */
-function logMsg(t){
-  log.innerHTML+=t+"<br>";
-  log.scrollTop=log.scrollHeight;
-}
-
-/* ===== SCENARIOS ===== */
-function scenarioNormal(){
-  logMsg("ATC: Normal traffic flow initiated");
-}
-
-function scenarioStorm(){
-  logMsg("🌧️ WEATHER ALERT: Heavy storm");
-  planes.forEach(p=>{
-    p.dataset.spd-=50;
-    logMsg(p.dataset.name+" reducing speed");
-  });
-}
-
-function scenarioEmergency(){
-  logMsg("<span class='alert'>!!! MAYDAY – ENGINE FAILURE !!!</span>");
-  planes[0].dataset.alt=5000;
-  logMsg("ATC: Emergency landing runway 28L");
-}
-
-function scenarioConflict(){
-  logMsg("<span class='alert'>⚠️ AIRSPACE CONFLICT</span>");
-  planes[1].style.left="260px";
-  planes[2].style.left="270px";
-}
+},1200);
 </script>
 
 </body>
