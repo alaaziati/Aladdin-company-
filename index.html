@@ -1,135 +1,240 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>شركة زياتي علاء الدين</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Cairo', sans-serif; }
-    body { background: #f4f6f8; color: #333; line-height: 1.6; transition: background 0.5s; }
-    header { background: #0a1f44; color: #fff; padding: 20px 50px; position: sticky; top:0; z-index:1000; display:flex; justify-content:space-between; align-items:center; }
-    header h1 { font-size:28px; }
-    nav a { color:#fff; margin-left:25px; text-decoration:none; font-weight:bold; transition:0.3s; }
-    nav a:hover { color:#00bcd4; }
-    .hero { background: url('https://images.unsplash.com/photo-1581091012184-7b19c5b4e6d0?fit=crop&w=1400&q=80') no-repeat center/cover; height:90vh; display:flex; align-items:center; justify-content:center; color:#fff; text-align:center; transition: background 0.5s; }
-    .hero h2 { font-size:50px; background: rgba(0,0,0,0.5); padding:20px; border-radius:10px; }
-    .section { padding:80px 50px; }
-    .section h2 { text-align:center; margin-bottom:50px; font-size:36px; color:#0a1f44; }
-    .cards { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; }
-    .card { background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.1); width:300px; cursor:pointer; transition: transform 0.3s; position:relative; }
-    .card:hover { transform: translateY(-10px); }
-    .card-details { display:none; margin-top:15px; color:#555; font-size:14px; }
-    footer { background:#0a1f44; color:#fff; text-align:center; padding:30px 50px; }
-    button { cursor:pointer; padding:10px 20px; border:none; border-radius:5px; margin:10px 0; background:#00bcd4; color:#fff; font-weight:bold; transition:0.3s; }
-    button:hover { background:#0288a6; }
-    input { padding:10px; width:200px; border-radius:5px; border:1px solid #ccc; margin-right:10px; }
-    @media(max-width:768px){
-      nav { float:none; text-align:center; margin-top:15px; }
-      .cards { flex-direction:column; align-items:center; }
-      .hero h2 { font-size:36px; padding:15px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Ziati Factory | Industrial Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  background:#0f172a;
+  font-family:Tahoma;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+/* MAIN PANEL */
+.panel{
+  background:#020617;
+  padding:30px 40px;
+  border-radius:20px;
+  box-shadow:0 0 50px rgba(0,0,0,0.9);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:30px;
+}
+
+/* ================= BUTTON ================= */
+.button{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:radial-gradient(circle at top,#555,#111);
+  box-shadow:
+    inset 0 6px 10px rgba(255,255,255,0.2),
+    inset 0 -8px 15px rgba(0,0,0,0.9),
+    0 15px 25px rgba(0,0,0,0.8);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  transition:0.15s;
+}
+.button:active{transform:translateY(6px)}
+.button.on{
+  background:radial-gradient(circle at top,#4ade80,#166534);
+}
+.button span{font-size:14px}
+.led{
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  margin-top:8px;
+  background:red;
+  box-shadow:0 0 10px red;
+}
+.button.on .led{
+  background:#22c55e;
+  box-shadow:0 0 15px #22c55e;
+}
+
+/* ================= EMERGENCY ================= */
+.emergency{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  background:radial-gradient(circle,#ff4d4d,#7f1d1d);
+  box-shadow:0 20px 30px rgba(0,0,0,0.9);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:bold;
+  cursor:pointer;
+}
+.emergency:active{transform:translateY(8px)}
+
+/* ================= ROTARY ================= */
+.rotary-box{text-align:center}
+.rotary{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  border:6px solid #555;
+  background:#111;
+  position:relative;
+  cursor:pointer;
+  transition:0.3s;
+}
+.rotary::after{
+  content:'';
+  width:6px;
+  height:40px;
+  background:#38bdf8;
+  position:absolute;
+  top:12px;
+  left:50%;
+  transform:translateX(-50%);
+}
+.rotary.off{transform:rotate(-45deg)}
+.rotary.on{transform:rotate(45deg)}
+
+/* ================= INDICATORS ================= */
+.indicators{
+  grid-column:span 2;
+  background:#020617;
+  padding:15px;
+  border-radius:15px;
+}
+.light{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:8px 0;
+}
+.bulb{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:#444;
+}
+.green{background:#22c55e;box-shadow:0 0 10px #22c55e}
+.yellow{background:#eab308;box-shadow:0 0 10px #eab308}
+.red{background:#ef4444;box-shadow:0 0 10px #ef4444}
+
+/* ================= METERS ================= */
+.meter{
+  background:#020617;
+  padding:15px;
+  border-radius:15px;
+}
+progress{
+  width:100%;
+  height:20px;
+}
+
+/* ================= SCREEN ================= */
+.screen{
+  grid-column:span 4;
+  background:black;
+  border-radius:10px;
+  padding:15px;
+  font-family:monospace;
+  color:#22c55e;
+}
+</style>
 </head>
+
 <body>
 
-  <header>
-    <h1>شركة زياتي علاء الدين</h1>
-    <nav>
-      <a href="#about">عن الشركة</a>
-      <a href="#services">خدماتنا</a>
-      <a href="#contact">تواصل معنا</a>
-    </nav>
-  </header>
+<div class="panel">
 
-  <section class="hero" id="hero">
-    <h2>الابتكار والتقنية في كل خطوة</h2>
-  </section>
+  <!-- START -->
+  <div class="button" onclick="toggleStart(this)">
+    <span>تشغيل</span>
+    <div class="led"></div>
+  </div>
 
-  <section class="section" id="about">
-    <h2>عن الشركة</h2>
-    <p style="text-align:center; max-width:800px; margin: 0 auto;">
-      نحن شركة رائدة في مجال التقنية والحلول الرقمية، نعمل على تقديم خدمات مبتكرة وعالية الجودة لتلبية احتياجات عملائنا وتحقيق رؤيتهم المستقبلية.
-    </p>
-    <div style="text-align:center; margin-top:30px;">
-      <button onclick="sayHello()">زر ترحيب</button>
-      <button onclick="changeTheme()">تغيير لون الموقع</button>
-    </div>
-    <div style="text-align:center; margin-top:20px;">
-      <input type="text" id="username" placeholder="أدخل اسمك هنا">
-      <button onclick="personalGreeting()">أرحب بي</button>
-    </div>
-  </section>
+  <!-- STOP -->
+  <div class="button" onclick="toggleStart(this)">
+    <span>إيقاف</span>
+    <div class="led"></div>
+  </div>
 
-  <section class="section" id="services">
-    <h2>خدماتنا</h2>
-    <div class="cards">
-      <div class="card" onclick="toggleDetails(this)">
-        <h3>تطوير الويب</h3>
-        <div class="card-details">تصميم وبرمجة مواقع إلكترونية احترافية وسريعة الاستجابة لجميع الأجهزة مع أحدث التقنيات.</div>
-      </div>
-      <div class="card" onclick="toggleDetails(this)">
-        <h3>تطبيقات الهاتف</h3>
-        <div class="card-details">تطوير تطبيقات مبتكرة لأنظمة iOS و Android تناسب كل احتياجات العملاء وتوفر تجربة مستخدم رائعة.</div>
-      </div>
-      <div class="card" onclick="toggleDetails(this)">
-        <h3>حلول تقنية</h3>
-        <div class="card-details">تقديم حلول تقنية متكاملة للشركات والمؤسسات لتحسين الأداء والإنتاجية وتقليل التكاليف.</div>
-      </div>
-    </div>
-  </section>
+  <!-- EMERGENCY -->
+  <div class="emergency" onclick="emergencyStop()">EMERGENCY<br>STOP</div>
 
-  <section class="section" id="contact">
-    <h2>تواصل معنا</h2>
-    <p style="text-align:center; max-width:800px; margin: 0 auto;">
-      البريد الإلكتروني: contact@ziati-tech.com | الهاتف: 0555 123 456 | العنوان: الجزائر العاصمة
-    </p>
-    <div style="text-align:center; margin-top:20px;">
-      <button onclick="toggleContact()">إخفاء/إظهار تواصل معنا</button>
-    </div>
-  </section>
+  <!-- ROTARY -->
+  <div class="rotary-box">
+    <div class="rotary off" id="rotary" onclick="toggleRotary()"></div>
+    <p>وضع التشغيل</p>
+  </div>
 
-  <footer>
-    &copy; 2026 شركة زياتي علاء الدين. جميع الحقوق محفوظة.
-  </footer>
+  <!-- INDICATORS -->
+  <div class="indicators">
+    <div class="light"><div class="bulb green"></div> النظام يعمل</div>
+    <div class="light"><div class="bulb yellow"></div> تحميل متوسط</div>
+    <div class="light"><div class="bulb red"></div> خطأ</div>
+  </div>
 
-  <script>
-    function sayHello(){
-      alert("مرحبا بك في شركة زياتي علاء الدين!");
-    }
+  <!-- METERS -->
+  <div class="meter">
+    <p>RPM</p>
+    <progress id="rpm" value="40" max="100"></progress>
+  </div>
 
-    function changeTheme(){
-      const body = document.body;
-      const hero = document.getElementById('hero');
-      // تغيير ألوان عشوائية بين 3 خيارات
-      const themes = [
-        {bg:'#f4f6f8', hero:'https://images.unsplash.com/photo-1581091012184-7b19c5b4e6d0?fit=crop&w=1400&q=80'},
-        {bg:'#1a1a2e', hero:'https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?fit=crop&w=1400&q=80'},
-        {bg:'#003366', hero:'https://images.unsplash.com/photo-1498050108023-c5249f4df085?fit=crop&w=1400&q=80'}
-      ];
-      const choice = themes[Math.floor(Math.random()*themes.length)];
-      body.style.background = choice.bg;
-      hero.style.background = `url('${choice.hero}') no-repeat center/cover`;
-    }
+  <div class="meter">
+    <p>الحرارة °C</p>
+    <progress id="temp" value="30" max="100"></progress>
+  </div>
 
-    function personalGreeting(){
-      const name = document.getElementById('username').value.trim();
-      if(name) alert(`مرحبا بك ${name} في شركة زياتي علاء الدين!`);
-      else alert("الرجاء إدخال اسمك!");
-    }
+  <!-- SCREEN -->
+  <div class="screen" id="screen">
+    SYSTEM READY...
+  </div>
 
-    function toggleDetails(card){
-      const details = card.querySelector('.card-details');
-      if(details.style.display === "block") details.style.display = "none";
-      else details.style.display = "block";
-    }
+</div>
 
-    function toggleContact(){
-      const contact = document.getElementById('contact');
-      if(contact.style.display === "none") contact.style.display = "block";
-      else contact.style.display = "none";
-    }
-  </script>
+<audio id="sound">
+  <source src="https://www.soundjay.com/buttons/sounds/button-09.mp3">
+</audio>
+
+<script>
+const sound = document.getElementById("sound");
+const screen = document.getElementById("screen");
+
+function toggleStart(btn){
+  btn.classList.toggle("on");
+  sound.play();
+  screen.innerText = btn.classList.contains("on")
+    ? "MACHINE STARTED..."
+    : "MACHINE STOPPED...";
+}
+
+function emergencyStop(){
+  document.querySelectorAll(".button").forEach(b=>b.classList.remove("on"));
+  document.getElementById("rotary").className="rotary off";
+  screen.innerText = "!!! EMERGENCY STOP ACTIVATED !!!";
+  sound.play();
+}
+
+function toggleRotary(){
+  const r = document.getElementById("rotary");
+  r.classList.toggle("on");
+  r.classList.toggle("off");
+  sound.play();
+}
+
+/* METERS SIMULATION */
+setInterval(()=>{
+  rpm.value = Math.floor(Math.random()*100);
+  temp.value = Math.floor(Math.random()*100);
+},1500);
+</script>
 
 </body>
 </html>
